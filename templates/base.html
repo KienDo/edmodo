@@ -1,0 +1,41 @@
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="/site_media/css/style.css" type="text/css" />
+    <script type="text/javascript" src="/site_media/javascript/jquery.js"></script>
+    {% block external %}{% endblock %}
+</head>
+<body>
+    <div id="account_menu">
+        <ul>
+            {% if user.is_authenticated %}
+                <li>Welcome <a href="/user/{{ user.username }}/"> {{ user.username }}</a> !</li>
+                <li><a href="/accounts/logout/">Logout</a></li>
+            {% else %}
+                <li><a href="/accounts/login/">Login</a></li>
+            {% endif %}
+        </ul>
+    </div>
+
+	<div id="container">
+    
+    	<div id="header">
+        	<h1><a href="index.html">Cyber Library</a></h1>
+            <ul>
+            	<li><a href="/" class="on">Home</a></li>
+                <li><a href="/library/">Library</a></li>
+                <li><a href="/forum/">Forum</a></li>
+                <li><a href="#">Style playground</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <form method="get" action="#">
+            	<p><input type="text" name="search" /><input type="submit" value="Search" class="btn" /></p>
+            </form>
+        </div>
+
+        <div id="content">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</body>
+</html>
