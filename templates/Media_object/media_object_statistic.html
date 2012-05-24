@@ -9,7 +9,7 @@
                     <td style="padding: 2px 2px 2px 2px">
                         <a href="/user/{{ viewer.username }}" style="text-decoration: none;">
                             <img class="viewer_avatar" width="40px" style="height:40px;"
-                                 src={{ viewer.user_information.avatar_url }} alt={{ viewer.username }}/>
+                                 src="{{ viewer.user_information.avatar_url }}" alt="{{ viewer.username }}"/>
                         </a>
                     </td>
                     {% if not forloop.counter|mod:4 %}
@@ -30,7 +30,7 @@
                     <td style="padding: 2px 2px 2px 2px">
                         <a href="/user/{{ voter.username }}" style="text-decoration: none;">
                             <img class="voter_avatar" width="40px" style="height:40px;"
-                                 src={{ voter.user_information.avatar_url }} alt={{ voter.username }}/>
+                                 src="{{ voter.user_information.avatar_url }}" alt="{{ voter.username }}"/>
                         </a>
                     </td>
                     {% if not forloop.counter|mod:4 %}
