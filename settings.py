@@ -1,4 +1,4 @@
-# Django settings for EdmodoLibrary project.
+# Django settings for Edmodo Library project.
 import os.path
 import django
 
@@ -47,12 +47,12 @@ USE_L10N = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = 'E:/SoftwareEngineering/storage'
+MEDIA_ROOT = os.path.join(os.path.dirname(__file__),'storage')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = 'storage'
+MEDIA_URL = '/storage/'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
@@ -120,8 +120,6 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
     'library',
-    'easy_thumbnails',
-    'django_evolution',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -146,7 +144,3 @@ LOGGING = {
         },
     }
 }
-
-#Setting for easy thumbnail
-THUMBNAIL_DEBUG=True
-THUMBNAIL_QUALITY=90

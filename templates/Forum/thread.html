@@ -1,0 +1,74 @@
+{% extends "Forum/base_forum.html" %}
+{% block title %}{{ thread_title }}{% endblock %}
+{% block base_forum_external %}
+    <link rel="stylesheet" type="text/css" href="/site_media/css/Forum/thread.css"/>
+{% endblock %}
+{% block base_forum_content %}
+    <h2>{{ thread_title }}</h2>
+    {% if posts.object_list.count == 0 %}
+        <h4>There is no post here</h4><br/>
+    {% else %}
+        <h4>There are {{ posts.object_list.count }} post(s) here</h4><br/>
+        <div class="well" style="background-color: #ffeec3;">
+            <div id="post_list">
+                {% for post in posts.object_list %}
+                    <table class="post_table" style="width:100%">
+                        <tr>
+                            <td class="post_table_field_1" style="width: 60px">
+                                <div class="user_avatar">
+                                    <a href="/user/{{ post.creator.username }}"><img width="50px" style="height: 50px;"src="{{ post.creator.user_information.avatar_url }}"/></a>
+                                </div>
+                            </td>
+                            <td class="post_table_field_2">
+                                <div class="well sidebar-nav post_frame">
+                                    <ul class="nav nav-list" style="background-color: #c7ff8e;">
+                                        <li class="post_header" style="text-align: right">
+                                            <div  class="post_creator_name" style="float:left;">
+                                                Posted by: <span style="color:#a841ff;">{{ post.creator.username }}</span>
+                                            </div>
+                                            Posted at: <span style="color:#ff0000;">{{ post.created }}</span>
+                                        </li>
+                                    </ul>
+                                    <div class="post_body">
+                                        <div class="thanks_btn">
+                                            {% if post.creator != user  %}
+                                                <a href="/thank/{{ post.id }}"><input type="button" value="Thanks"/></a>
+                                            {% endif %}
+                                        </div>
+                                        <div class="post_content">
+                                            {{ post.content }}<br/>
+                                            {% if post.link %}
+                                                <a href="{{ post.link }}">{{ post.link }}</a><br/>
+                                            {% endif %}
+                                        </div>
+                                        <hr/><span style="font:bold 14px Arial">Thanked:</span>
+                                        {% if post.thank_set.all %}
+                                            {% for thanker in post.thank_set.all %}
+                                                <a href="/user/{{ thanker.from_user.username }}">{{ thanker.from_user.username }}</a>,
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    {# --------Phan trang------- #}
+    {% with object_holder=posts %}
+        {% include "Paginator/paginator.html" %}
+    {% endwith %}
+    {# --------Het phan trang------- #}
+    <div id="new_post_form">
+        <form method="post" action=".">
+            <table>
+                {% csrf_token %}
+                {{ new_post_form.as_table }}
+            </table>
+            <input type="submit" value="Reply"/>
+        </form>
+    </div>
+
+{% endblock %}
